@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Physics Lab UA — Електричний струм у газах</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header>
+  <a href="#top">⚡ PHYSICS LAB UA</a>
+  <span>Тема 7. ЕЛЕКТРИЧНИЙ СТРУМ У ГАЗАХ</span>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div>
+      <p>ВІРТУАЛЬНА ЛАБОРАТОРІЯ</p>
+      <h1>Електричний струм<br><em>у газах</em></h1>
+      <small>
+        Досліди, за яких умов газ стає провідником, як виникає йонізація
+        та чим відрізняються несамостійний і самостійний газові розряди.
+      </small>
+      <button data-go="ionization">Почати дослід →</button>
+    </div>
+    <aside>
+      <b>Газовий розряд</b>
+      <span>напрямлений рух електронів та йонів у йонізованому газі</span>
+      <b>E<sub>k</sub> = m<sub>e</sub>v² / 2</b>
+      <span>кінетична енергія електрона</span>
+      <b>v = √(2W<sub>i</sub>/m<sub>e</sub>)</b>
+      <span>мінімальна швидкість для ударної йонізації</span>
+    </aside>
+  </section>
+
+  <nav>
+    <button class="tab active" data-tab="theory">1. Теорія</button>
+    <button class="tab" data-tab="ionization">2. Йонізація</button>
+    <button class="tab" data-tab="discharge">3. Газовий розряд</button>
+    <button class="tab" data-tab="types">4. Види розрядів</button>
+    <button class="tab" data-tab="task">5. Задача</button>
+    <button class="tab" data-tab="quiz">6. Перевір себе</button>
+  </nav>
+
+  <section id="theory" class="panel active-panel">
+    <div class="title">
+      <div><span>01</span><h2>Коли газ проводить струм</h2></div>
+      <p>За звичайних умов газ майже не має вільних носіїв заряду.</p>
+    </div>
+
+    <div class="cards">
+      <article>
+        <i>◌</i>
+        <h3>Нейтральний газ</h3>
+        <p>Складається переважно з електрично нейтральних атомів і молекул, тому є діелектриком.</p>
+      </article>
+      <article>
+        <i>⚡</i>
+        <h3>Йонізація</h3>
+        <p>Утворення позитивних і негативних йонів та вільних електронів із нейтральних частинок.</p>
+      </article>
+      <article>
+        <i>↔</i>
+        <h3>Струм у газі</h3>
+        <p>Напрямлений рух вільних електронів, позитивних і негативних йонів.</p>
+      </article>
+    </div>
+
+    <div class="note">
+      <b>Важливо.</b> У зовнішньому електричному полі позитивні йони рухаються
+      вздовж силових ліній, а електрони та негативні йони — у протилежному напрямку.
+    </div>
+  </section>
+
+  <section id="ionization" class="panel">
+    <div class="title">
+      <div><span>02</span><h2>Модель йонізації газу</h2></div>
+      <p>Змінюй енергію електрона та спостерігай, чи відбудеться йонізація.</p>
+    </div>
+
+    <div class="grid">
+      <article class="visual">
+        <div class="cardtop">
+          <h3>Зіткнення електрона з атомом</h3>
+          <span class="status" id="ionStatus">Недостатньо енергії</span>
+        </div>
+        <canvas id="ionCanvas" width="860" height="460"></canvas>
+      </article>
+
+      <aside class="controls">
+        <h3>Параметри</h3>
+        <label>
+          <span>Енергія електрона <output id="energyOut">8,0 еВ</output></span>
+          <input id="energyRange" type="range" min="1" max="22" step="0.5" value="8">
+        </label>
+
+        <label>
+          <span>Енергія йонізації W<sub>i</sub></span>
+          <select id="gasSelect">
+            <option value="13.6">Гідроген — 13,6 еВ</option>
+            <option value="14.5">Нітроген — 14,5 еВ</option>
+            <option value="15.8">Аргон — 15,8 еВ</option>
+            <option value="12.1">Ксенон — 12,1 еВ</option>
+          </select>
+        </label>
+
+        <div class="answer">
+          <span>Результат</span>
+          <b id="ionResult">Йонізація не відбувається</b>
+          <small id="ionHint">E &lt; Wᵢ</small>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="discharge" class="panel">
+    <div class="title">
+      <div><span>03</span><h2>Несамостійний і самостійний розряд</h2></div>
+      <p>Досліди умовну вольт-амперну характеристику газового розряду.</p>
+    </div>
+
+    <div class="grid">
+      <article class="visual">
+        <canvas id="vacCanvas" width="860" height="500"></canvas>
+        <div class="reactions">
+          <div><span>Ділянка 1</span><b>Слабке поле: I зростає з U</b></div>
+          <div><span>Ділянка 2</span><b>Струм насичення</b></div>
+          <div><span>Ділянка 3</span><b>Електронна лавина</b></div>
+        </div>
+      </article>
+
+      <aside class="controls">
+        <h3>Керування</h3>
+        <label>
+          <span>Напруга U <output id="voltageOut">30 В</output></span>
+          <input id="voltageRange" type="range" min="0" max="120" value="30">
+        </label>
+
+        <label class="switchline">
+          <span>Зовнішній йонізатор</span>
+          <label class="switch">
+            <input id="ionizerSwitch" type="checkbox" checked>
+            <span></span>
+          </label>
+        </label>
+
+        <div class="answer">
+          <span>Режим</span>
+          <b id="dischargeMode">Несамостійний розряд</b>
+          <small id="currentOut">I ≈ 0,30 ум. од.</small>
+        </div>
+
+        <div class="legend">
+          <span>🔵 електрони → до анода (+)</span>
+          <span>🔴 позитивні йони → до катода (−)</span>
+        </div>
+      </aside>
+    </div>
+
+    <article class="visual discharge-box">
+      <div class="cardtop">
+        <h3>Рух заряджених частинок між електродами</h3>
+        <span id="sparkText">Газ проводить завдяки зовнішньому йонізатору</span>
+      </div>
+      <canvas id="gasCanvas" width="1100" height="430"></canvas>
+    </article>
+  </section>
+
+  <section id="types" class="panel">
+    <div class="title">
+      <div><span>04</span><h2>Види самостійних газових розрядів</h2></div>
+      <p>Натисни картку, щоб побачити характерні умови та застосування.</p>
+    </div>
+
+    <div class="uses discharge-types">
+      <article data-type="spark">
+        <i>⚡</i>
+        <h3>Іскровий</h3>
+        <p>Велика напруга, атмосферний тиск. Приклад — блискавка.</p>
+      </article>
+      <article data-type="glow">
+        <i>💡</i>
+        <h3>Тліючий</h3>
+        <p>Низький тиск і невелика напруга. Газорозрядні лампи.</p>
+      </article>
+      <article data-type="arc">
+        <i>🔥</i>
+        <h3>Дуговий</h3>
+        <p>Висока температура та велика сила струму. Електрозварювання.</p>
+      </article>
+      <article data-type="corona">
+        <i>✨</i>
+        <h3>Коронний</h3>
+        <p>Сильно неоднорідне поле біля гострих електродів. Електрофільтри.</p>
+      </article>
+    </div>
+
+    <div class="note detail" id="typeDetail">
+      <b>Іскровий розряд.</b> Виникає за великої напруги між електродами. У природі
+      яскравим прикладом є блискавка.
+    </div>
+  </section>
+
+  <section id="task" class="panel">
+    <div class="title">
+      <div><span>05</span><h2>Задача: швидкість електрона</h2></div>
+      <p>Знайди мінімальну швидкість електрона, достатню для йонізації атома.</p>
+    </div>
+
+    <div class="grid">
+      <article class="visual formula-card">
+        <h3>Математична модель</h3>
+        <p>E<sub>k</sub> = W<sub>i</sub></p>
+        <p class="formula">m<sub>e</sub>v² / 2 = W<sub>i</sub></p>
+        <p class="formula">v = √(2W<sub>i</sub> / m<sub>e</sub>)</p>
+        <small>m<sub>e</sub> = 9,1·10⁻³¹ кг; 1 еВ = 1,6·10⁻¹⁹ Дж</small>
+      </article>
+
+      <aside class="controls">
+        <h3>Розрахунок</h3>
+        <label>
+          <span>Енергія йонізації <output id="wiOut">13,6 еВ</output></span>
+          <input id="wiRange" type="range" min="5" max="25" step="0.1" value="13.6">
+        </label>
+
+        <div class="answer">
+          <span>Мінімальна швидкість</span>
+          <b id="speedValue">v ≈ 2,19·10⁶ м/с</b>
+          <small id="jouleValue">Wᵢ = 2,18·10⁻¹⁸ Дж</small>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="quiz" class="panel">
+    <div class="title">
+      <div><span>06</span><h2>Перевір себе</h2></div>
+      <p>Сім запитань за матеріалом теми.</p>
+    </div>
+
+    <div id="quizBox" class="quiz"></div>
+    <div class="actions">
+      <button id="check">Перевірити</button>
+      <button id="reset">Ще раз</button>
+      <b id="result"></b>
+    </div>
+  </section>
+</main>
+
+<footer>Гришаєв М.М. · Інтерактивні симуляції для уроків фізики</footer>
+<script src="app.js"></script>
+</body>
+</html>
