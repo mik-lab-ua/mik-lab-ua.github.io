@@ -17,12 +17,5 @@
 - коротка лабораторна інструкція;
 - 6 контрольних запитань.
 
-## Запуск
-Відкрий `index.html` у браузері.
-
-## GitHub Pages
-Завантаж `index.html`, `style.css` та `app.js` у репозиторій
-`mik-physicslabua.github.io`, а в Settings → Pages вибери публікацію з гілки `main`.
-
-Після цього адреса буде:
-https://mik-physicslabua.github.io/
+Адреса симулятора:
+https://mik-lab-ua.github.io/physic/simulations/tema-1/
