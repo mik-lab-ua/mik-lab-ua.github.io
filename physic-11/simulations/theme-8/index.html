@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Physics Lab UA — Електричний струм у вакуумі</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header>
+  <a href="#top">⚡ PHYSICS LAB UA</a>
+  <span>Тема 8. ЕЛЕКТРИЧНИЙ СТРУМ У ВАКУУМІ · ЕЛЕКТРОВАКУУМНІ ПРИЛАДИ</span>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div>
+      <p>ВІРТУАЛЬНА ЛАБОРАТОРІЯ</p>
+      <h1>Електричний струм<br><em>у вакуумі</em></h1>
+      <small>
+        Досліди термоелектронну емісію, роботу вакуумного діода,
+        однобічну провідність, випрямлення змінного струму та керування електронним пучком.
+      </small>
+      <button data-go="emission">Почати дослід →</button>
+    </div>
+    <aside>
+      <b>E<sub>k</sub> ≥ A<sub>вих</sub></b>
+      <span>умова виходу електрона з металу</span>
+      <b>m<sub>e</sub>v² / 2 ≥ A<sub>вих</sub></b>
+      <span>мінімальна кінетична енергія</span>
+      <b>Струм у вакуумі</b>
+      <span>напрямлений рух вільних електронів</span>
+    </aside>
+  </section>
+
+  <nav>
+    <button class="tab active" data-tab="theory">1. Теорія</button>
+    <button class="tab" data-tab="emission">2. Емісія</button>
+    <button class="tab" data-tab="diode">3. Вакуумний діод</button>
+    <button class="tab" data-tab="rectifier">4. Випрямлення</button>
+    <button class="tab" data-tab="beam">5. Електронний пучок</button>
+    <button class="tab" data-tab="quiz">6. Перевір себе</button>
+  </nav>
+
+  <section id="theory" class="panel active-panel">
+    <div class="title">
+      <div><span>01</span><h2>Вакуум і електронна емісія</h2></div>
+      <p>Для існування струму у вакуумі потрібні вільні заряджені частинки та електричне поле.</p>
+    </div>
+
+    <div class="cards">
+      <article>
+        <i>◌</i>
+        <h3>Вакуум</h3>
+        <p>Стан газу за тиску, значно меншого від атмосферного. У глибокому вакуумі молекули газу практично не заважають руху електронів.</p>
+      </article>
+      <article>
+        <i>🔥</i>
+        <h3>Термоелектронна емісія</h3>
+        <p>Випромінювання електронів нагрітими тілами. Саме її використовують у лампових діодах та електронно-променевих трубках.</p>
+      </article>
+      <article>
+        <i>e⁻</i>
+        <h3>Електронна хмара</h3>
+        <p>Біля нагрітої поверхні металу утворюється хмара вільних електронів, а поверхня металу набуває позитивного заряду.</p>
+      </article>
+    </div>
+
+    <div class="note">
+      <b>Робота виходу A<sub>вих</sub></b> — енергія, яку повинен мати електрон, щоб залишити метал.
+      Електрон може вийти з металу, якщо його кінетична енергія не менша за роботу виходу.
+    </div>
+
+    <div class="uses emission-types">
+      <article><i>🔥</i><h3>Термоелектронна</h3><p>Випромінювання електронів нагрітими тілами.</p></article>
+      <article><i>☀️</i><h3>Фотоелектронна</h3><p>Емісія під дією випромінювання, що падає на поверхню тіла.</p></article>
+      <article><i>⚡</i><h3>Автоелектронна</h3><p>Емісія у сильному електричному полі біля поверхні металу.</p></article>
+      <article><i>💥</i><h3>Вторинна</h3><p>Емісія внаслідок бомбардування поверхні електронами або йонами.</p></article>
+      <article><i>✨</i><h3>Вибухова</h3><p>Емісія внаслідок локального переходу мікроділянки катода в плазму.</p></article>
+    </div>
+  </section>
+
+  <section id="emission" class="panel">
+    <div class="title">
+      <div><span>02</span><h2>Термоелектронна емісія</h2></div>
+      <p>Змінюй температуру катода та роботу виходу і спостерігай утворення електронної хмари.</p>
+    </div>
+
+    <div class="grid">
+      <article class="visual">
+        <div class="cardtop">
+          <h3>Нагрітий метал</h3>
+          <span class="status" id="emissionStatus">Слабка емісія</span>
+        </div>
+        <canvas id="emissionCanvas" width="860" height="500"></canvas>
+      </article>
+
+      <aside class="controls">
+        <h3>Параметри</h3>
+        <label>
+          <span>Температура катода <output id="tempOut">1200 °C</output></span>
+          <input id="tempRange" type="range" min="500" max="2600" step="50" value="1200">
+        </label>
+
+        <label>
+          <span>Робота виходу</span>
+          <select id="metalSelect">
+            <option value="2.5">Барій — 2,5 еВ</option>
+            <option value="2.1">Стронцій — 2,1 еВ</option>
+            <option value="4.5">Вольфрам — 4,5 еВ</option>
+            <option value="4.7">Мідь — 4,7 еВ</option>
+          </select>
+        </label>
+
+        <div class="energy-compare">
+          <div class="energy-row">
+            <span>Умовний рівень енергії електронів</span>
+            <b id="thermalEnergyText">0,8 ум. од.</b>
+            <div class="meter"><i id="thermalBar"></i></div>
+          </div>
+          <div class="energy-row">
+            <span>Робота виходу A<sub>вих</sub></span>
+            <b id="workOut">2,5 еВ</b>
+            <div class="meter work"><i id="workBar"></i></div>
+          </div>
+        </div>
+
+        <div class="threshold" id="thresholdBox">
+          <b id="thresholdText">E<sub>умовн</sub> &lt; A<sub>вих</sub></b>
+          <span id="thresholdCaption">Електронам важко залишити поверхню металу</span>
+        </div>
+
+        <div class="answer">
+          <span>Що відбувається</span>
+          <b id="emissionValue">Електрони переважно залишаються в металі</b>
+          <small id="emissionExplain">Нагрій катод сильніше або обери метал із меншою роботою виходу.</small>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="diode" class="panel">
+    <div class="title">
+      <div><span>03</span><h2>Вакуумний діод</h2></div>
+      <p>Змінюй полярність і напругу між катодом та анодом.</p>
+    </div>
+
+    <div class="grid">
+      <article class="visual">
+        <div class="cardtop">
+          <h3>Рух електронів у вакуумі</h3>
+          <span id="biasText">Пряме ввімкнення</span>
+        </div>
+        <canvas id="diodeCanvas" width="860" height="500"></canvas>
+      </article>
+
+      <aside class="controls">
+        <h3>Керування</h3>
+
+        <label>
+          <span>Напруга U <output id="diodeUOut">60 В</output></span>
+          <input id="diodeURange" type="range" min="-100" max="100" step="5" value="60">
+        </label>
+
+        <label>
+          <span>Нагрів катода <output id="heatOut">75 %</output></span>
+          <input id="heatRange" type="range" min="0" max="100" value="75">
+        </label>
+
+        <div class="answer">
+          <span>Сила анодного струму</span>
+          <b id="diodeIOut">I = 6,00 мА</b>
+          <small id="conductText">Електрони рухаються від катода до анода</small>
+        </div>
+      </aside>
+    </div>
+
+    <article class="visual graph-card">
+      <div class="cardtop"><h3>Вольт-амперна характеристика вакуумного діода</h3></div>
+      <canvas id="diodeGraph" width="1100" height="480"></canvas>
+    </article>
+  </section>
+
+  <section id="rectifier" class="panel">
+    <div class="title">
+      <div><span>04</span><h2>Однопівперіодне випрямлення</h2></div>
+      <p>Вакуумний діод пропускає струм лише під час одного півперіоду змінної напруги.</p>
+    </div>
+
+    <div class="grid">
+      <article class="visual">
+        <div class="cardtop">
+          <h3>Змінна напруга та струм у колі</h3>
+          <span id="rectText">Діод відкритий</span>
+        </div>
+        <canvas id="rectCanvas" width="860" height="520"></canvas>
+      </article>
+
+      <aside class="controls">
+        <h3>Параметри</h3>
+        <label>
+          <span>Амплітуда U<sub>m</sub> <output id="ampOut">80 В</output></span>
+          <input id="ampRange" type="range" min="20" max="120" value="80">
+        </label>
+        <label>
+          <span>Частота f <output id="freqOut">1,0 Гц</output></span>
+          <input id="freqRange" type="range" min="0.5" max="3" step="0.1" value="1">
+        </label>
+
+        <div class="answer">
+          <span>Поточний стан кола</span>
+          <b id="rectState">Пряме ввімкнення — струм проходить</b>
+          <small id="rectExplain">Анод позитивний відносно катода: електрони летять до анода.</small>
+        </div>
+        <div class="legend">
+          <span>🟣 верхній графік — вхідна змінна напруга U(t)</span>
+          <span>🟢 нижній графік — струм після діода I(t)</span>
+          <span>🔴 вертикальна лінія — поточний момент часу</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="beam" class="panel">
+    <div class="title">
+      <div><span>05</span><h2>Електронний пучок і ЕПТ</h2></div>
+      <p>Керуй відхиленням електронного пучка горизонтальними та вертикальними пластинами.</p>
+    </div>
+
+    <div class="grid">
+      <article class="visual">
+        <div class="cardtop">
+          <h3>Спрощена модель електронно-променевої трубки</h3>
+          <span id="spotText">Світна точка в центрі</span>
+        </div>
+        <canvas id="beamCanvas" width="1000" height="520"></canvas>
+      </article>
+
+      <aside class="controls">
+        <h3>Керувальні пластини</h3>
+
+        <label>
+          <span>Вертикальне відхилення <output id="vDefOut">0</output></span>
+          <input id="vDefRange" type="range" min="-100" max="100" value="0">
+        </label>
+
+        <label>
+          <span>Горизонтальне відхилення <output id="hDefOut">0</output></span>
+          <input id="hDefRange" type="range" min="-100" max="100" value="0">
+        </label>
+
+        <label>
+          <span>Прискорювальна напруга <output id="accOut">8 кВ</output></span>
+          <input id="accRange" type="range" min="2" max="15" step="1" value="8">
+        </label>
+
+        <div class="answer">
+          <span>Положення плями</span>
+          <b id="beamPos">x = 0; y = 0</b>
+          <small>Знак напруги на пластинах визначає напрям відхилення.</small>
+        </div>
+      </aside>
+    </div>
+
+    <div class="note">
+      <b>Властивості електронних пучків:</b> нагрівають тіла при потраплянні на поверхню,
+      викликають рентгенівське випромінювання при швидкому гальмуванні,
+      спричиняють світіння люмінофорів та відхиляються електричним і магнітним полями.
+    </div>
+  </section>
+
+  <section id="quiz" class="panel">
+    <div class="title">
+      <div><span>06</span><h2>Перевір себе</h2></div>
+      <p>Сім запитань за матеріалом теми.</p>
+    </div>
+
+    <div id="quizBox" class="quiz"></div>
+    <div class="actions">
+      <button id="check">Перевірити</button>
+      <button id="reset">Ще раз</button>
+      <b id="result"></b>
+    </div>
+  </section>
+</main>
+
+<footer>Гришаєв М.М. · Інтерактивні симуляції для уроків фізики</footer>
+<script src="app.js"></script>
+</body>
+</html>
