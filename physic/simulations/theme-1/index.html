@@ -1,1 +1,214 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Physics Lab UA — Електричний струм</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .flow-layer{transition:opacity .25s}.current-arrow,.electron-arrow{fill:none;stroke-width:4;stroke-linecap:round;stroke-dasharray:9 8}.current-arrow{stroke:#e04b3f;color:#e04b3f}.electron-arrow{stroke:#1687d9;stroke-width:3}.flow-layer.is-active .current-arrow,.flow-layer.is-active .electron-arrow{animation:flow-dashes .8s linear infinite}.flow-layer.is-inactive{opacity:0}.electron{fill:#1687d9;stroke:#fff;stroke-width:1.5}.flow-legend{display:flex;gap:12px;flex-wrap:wrap;margin:0 20px 12px}.flow-choice{flex:1;min-width:220px;display:grid;grid-template-columns:34px 1fr;column-gap:8px;align-items:center;padding:10px 12px;background:#f4f8f9;border:2px solid #dce7e9;border-radius:10px;color:#16303b;text-align:left;font:inherit;cursor:pointer;transition:.2s}.flow-choice:hover{background:#edf6f7;transform:translateY(-1px)}.flow-choice.active{border-color:#0d7c82;background:#e4f5f4;box-shadow:0 0 0 2px #0d7c8220}.flow-choice:focus-visible{outline:3px solid #12aaa566;outline-offset:2px}.flow-legend .legend-arrow{grid-row:1/3;font-size:29px;font-weight:900}.flow-legend b{font-size:13px}.flow-legend small{color:#607983}.current-swatch{color:#e04b3f}.electron-swatch{color:#1687d9}.learning-note{margin:0 20px 12px;padding:12px 14px;border-left:4px solid #1687d9;background:#eaf5fc;border-radius:8px;font-size:13px;line-height:1.5;color:#315966}@keyframes flow-dashes{to{stroke-dashoffset:-17}}@media(prefers-reduced-motion:reduce){.flow-layer.is-active .current-arrow,.flow-layer.is-active .electron-arrow{animation:none}}
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">⚡ PHYSICS LAB UA</div>
+  <div class="topic">Тема 1. ЕЛЕКТРИЧНИЙ СТРУМ</div>
+</header>
 
+<main>
+  <section class="hero">
+    <div>
+      <div class="eyebrow">ВІРТУАЛЬНА ЛАБОРАТОРІЯ</div>
+      <h1>Електричний струм<br><span>і закон Ома</span></h1>
+      <p>Досліджуй електричне коло, змінюй напругу й опір, спостерігай силу струму та перевіряй закон Ома.</p>
+      <div class="hero-actions">
+        <button class="primary" onclick="scrollToId('lab')">🔬 Почати дослід</button>
+        <button class="secondary" onclick="scrollToId('quiz')">🧠 Перевірити себе</button>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="formula">I = U / R</div>
+      <div class="formula-label">Закон Ома для ділянки кола</div>
+      <div class="mini-stats">
+        <div><b>I</b><span>сила струму, А</span></div>
+        <div><b>U</b><span>напруга, В</span></div>
+        <div><b>R</b><span>опір, Ом</span></div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="intro">1. Теорія</button>
+    <button class="tab" data-tab="lab">2. Віртуальне коло</button>
+    <button class="tab" data-tab="ohm">3. Закон Ома</button>
+    <button class="tab" data-tab="quiz">4. Перевір себе</button>
+  </nav>
+
+  <section id="intro" class="panel active-panel">
+    <div class="section-title">
+      <div><span class="number">01</span><h2>Умови існування електричного струму</h2></div>
+      <p>Щоб виник і підтримувався струм, потрібні дві умови.</p>
+    </div>
+    <div class="condition-grid">
+      <article class="info-card">
+        <div class="icon">⚛️</div>
+        <h3>Вільні заряджені частинки</h3>
+        <p>У металах це переважно вільні електрони. В електролітах струм створюють позитивні та негативні йони.</p>
+      </article>
+      <article class="info-card">
+        <div class="icon">⚡</div>
+        <h3>Електричне поле</h3>
+        <p>Поле діє на заряджені частинки й створює їхній упорядкований рух.</p>
+      </article>
+      <article class="info-card accent">
+        <div class="icon">🔋</div>
+        <h3>Джерело струму</h3>
+        <p>Джерело підтримує електричне поле та перетворює інші види енергії на електричну.</p>
+      </article>
+    </div>
+    <div class="definition">
+      <strong>Електричний струм</strong> — це напрямлений (упорядкований) рух частинок, які мають електричний заряд.
+    </div>
+  </section>
+
+  <section id="lab" class="panel">
+    <div class="section-title">
+      <div><span class="number">02</span><h2>Віртуальне електричне коло</h2></div>
+      <p>Зміни параметри й спостерігай, як змінюється струм.</p>
+    </div>
+
+    <div class="lab-layout">
+      <div class="circuit-card">
+        <div class="card-head">
+          <h3>🔋 Дослідне коло</h3>
+          <label class="switch-label">
+            <input id="switch" type="checkbox" checked>
+            <span class="toggle"></span>
+            Ключ замкнений
+          </label>
+        </div>
+        <div class="circuit-wrap">
+          <svg id="circuitSvg" viewBox="0 0 760 360" role="img" aria-label="Інтерактивна схема електричного кола">
+            <defs>
+              <marker id="currentArrowhead" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 z" fill="#e04b3f"></path>
+              </marker>
+              <marker id="electronArrowhead" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 z" fill="#1687d9"></path>
+              </marker>
+            </defs>
+            <path class="wire" d="M80 80 H240"></path>
+            <path class="wire" d="M360 80 H680 V280 H80 V80"></path>
+            <path class="wire" d="M240 80 L270 80"></path>
+            <path class="wire" d="M330 80 L360 80"></path>
+            <path class="wire" d="M310 80 V80"></path>
+
+            <!-- battery -->
+            <line x1="135" y1="65" x2="135" y2="95" class="battery short"></line>
+            <line x1="160" y1="55" x2="160" y2="105" class="battery long"></line>
+            <text x="112" y="70" class="polarity">−</text>
+            <text x="165" y="70" class="polarity">+</text>
+            <text x="90" y="145" class="component-label">Джерело струму</text>
+
+            <!-- switch -->
+            <circle cx="270" cy="80" r="6" class="node"></circle>
+            <circle cx="330" cy="80" r="6" class="node"></circle>
+            <line id="switchBlade" x1="270" y1="80" x2="330" y2="80" class="switch-blade"></line>
+            <text x="274" y="125" class="component-label">Ключ</text>
+
+            <!-- resistor -->
+            <rect x="420" y="263" width="140" height="34" rx="3" class="resistor" style="fill:#fff"></rect>
+            <text x="484" y="288" class="meter-letter">R</text>
+
+            <!-- ammeter -->
+            <circle cx="680" cy="180" r="35" class="meter"></circle>
+            <text x="680" y="188" text-anchor="middle" class="meter-letter">A</text>
+
+            <!-- Conventional current: from + to − through the external circuit. -->
+            <g id="currentFlow" class="flow-layer">
+              <path class="current-arrow" d="M370 80 H625" marker-end="url(#currentArrowhead)"></path>
+              <path class="current-arrow" d="M215 280 H105" marker-end="url(#currentArrowhead)"></path>
+            </g>
+            <!-- Electron motion: from − to +, opposite to conventional current. -->
+            <g id="electronFlow" class="flow-layer">
+              <path class="electron-arrow" d="M105 295 H395" marker-end="url(#electronArrowhead)"></path>
+              <path class="electron-arrow" d="M625 67 H370" marker-end="url(#electronArrowhead)"></path>
+            </g>
+
+            <!-- electron dots -->
+            <g id="electrons"></g>
+          </svg>
+        </div>
+        <div class="flow-legend" role="group" aria-label="Оберіть напрямок для відображення">
+          <button type="button" class="flow-choice active" data-flow="current" aria-pressed="true"><span class="legend-arrow current-swatch">→</span><b>Напрям електричного струму</b><small>від «+» до «−»</small></button>
+          <button type="button" class="flow-choice" data-flow="electrons" aria-pressed="false"><span class="legend-arrow electron-swatch">→</span><b>Рух електронів</b><small>від «−» до «+»</small></button>
+        </div>
+        <div class="learning-note"><b>Зверни увагу:</b> напрям струму умовно визначають як напрям руху позитивних зарядів. У металевих провідниках електрони рухаються у протилежний бік.</div>
+        <div id="status" class="status on">● Коло замкнене — струм протікає</div>
+      </div>
+
+      <aside class="controls-card">
+        <h3>⚙️ Параметри досліду</h3>
+        <div class="control">
+          <div class="control-row"><label>Напруга U</label><output id="uOut">12 В</output></div>
+          <input id="uRange" type="range" min="0" max="24" step="1" value="12">
+        </div>
+        <div class="control">
+          <div class="control-row"><label>Опір R</label><output id="rOut">20 Ом</output></div>
+          <input id="rRange" type="range" min="1" max="100" step="1" value="20">
+        </div>
+
+        <div class="meters">
+          <div class="meter-box"><span>Сила струму</span><strong id="iValue">0,60 А</strong></div>
+          <div class="meter-box"><span>Напруга</span><strong id="uValue">12,0 В</strong></div>
+          <div class="meter-box"><span>Опір</span><strong id="rValue">20,0 Ом</strong></div>
+        </div>
+
+        <div class="formula-box">
+          <span>Перевірка закону Ома</span>
+          <b>I = U / R = <span id="formulaValue">12 / 20 = 0,60 А</span></b>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="ohm" class="panel">
+    <div class="section-title">
+      <div><span class="number">03</span><h2>Дослідження закону Ома</h2></div>
+      <p>Побудуй вольт-амперну характеристику та побач пропорційність I і U.</p>
+    </div>
+    <div class="ohm-layout">
+      <div class="graph-card">
+        <canvas id="graph" width="720" height="410"></canvas>
+      </div>
+      <div class="experiment-card">
+        <h3>📋 Інструкція</h3>
+        <ol>
+          <li>Встанови опір <b>R</b>.</li>
+          <li>Поступово змінюй напругу <b>U</b>.</li>
+          <li>Для кожного значення визначай <b>I = U/R</b>.</li>
+          <li>Спостерігай, що для сталого R графік I(U) — пряма лінія.</li>
+        </ol>
+        <div class="observation"><b>Висновок:</b> сила струму прямо пропорційна напрузі та обернено пропорційна опору.</div>
+        <button class="secondary full" onclick="randomExperiment()">🎲 Новий дослід</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="quiz" class="panel">
+    <div class="section-title">
+      <div><span class="number">04</span><h2>Перевір себе</h2></div>
+      <p>Виконай 6 коротких завдань за матеріалом теми.</p>
+    </div>
+    <div id="quizBox" class="quiz-box"></div>
+    <div class="quiz-footer">
+      <button class="primary" onclick="checkQuiz()">Перевірити відповіді</button>
+      <div id="quizResult"></div>
+    </div>
+  </section>
+</main>
+
+<footer>Гришаєв М.М. · Інтерактивні симуляції для уроків фізики</footer>
+<script src="app.js"></script>
+</body>
+</html>
