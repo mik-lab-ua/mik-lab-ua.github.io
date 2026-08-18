@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Physics Lab UA — Струм в електролітах</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <a href="#top">⚡ PHYSICS LAB UA</a
+      ><span>Тема 6. СТРУМ В ЕЛЕКТРОЛІТАХ · ЕЛЕКТРОЛІЗ</span>
+    </header>
+    <main id="top">
+      <section class="hero">
+        <div>
+          <p>ВІРТУАЛЬНА ЛАБОРАТОРІЯ</p>
+          <h1>Електричний струм<br /><em>в електролітах</em></h1>
+          <small
+            >Керуй рухом йонів, спостерігай процеси на електродах і перевіряй
+            закони Фарадея.</small
+          ><button data-go="electrolysis">Почати дослід →</button>
+        </div>
+        <aside>
+          <b>m = kIt = kq</b><span>перший закон Фарадея</span><b>k = M/(Fn)</b
+          ><span>електрохімічний еквівалент</span
+          ><b>F = N<sub>A</sub>|e| ≈ 9,65·10⁴ Кл/моль</b>
+        </aside>
+      </section>
+      <nav>
+        <button class="tab active" data-tab="theory">1. Теорія</button
+        ><button class="tab" data-tab="electrolysis">2. Електроліз</button
+        ><button class="tab" data-tab="faraday">3. Закони Фарадея</button
+        ><button class="tab" data-tab="uses">4. Застосування</button
+        ><button class="tab" data-tab="quiz">5. Перевір себе</button>
+      </nav>
+      <section id="theory" class="panel active-panel">
+        <div class="title">
+          <div>
+            <span>01</span>
+            <h2>Йонна провідність</h2>
+          </div>
+          <p>Струм в електролітах створюють позитивні й негативні йони.</p>
+        </div>
+        <div class="cards">
+          <article>
+            <i>💧</i>
+            <h3>Електроліти</h3>
+            <p>
+              Розчини та розплави солей, кислот і лугів, у яких є вільні йони.
+            </p>
+          </article>
+          <article>
+            <i>⊕</i>
+            <h3>Катіони</h3>
+            <p>Позитивні йони рухаються до негативного електрода — катода.</p>
+          </article>
+          <article>
+            <i>⊖</i>
+            <h3>Аніони</h3>
+            <p>Негативні йони рухаються до позитивного електрода — анода.</p>
+          </article>
+        </div>
+        <div class="note">
+          <b>Електричний струм у розчинах і розплавах електролітів</b> —
+          напрямлений рух вільних позитивних і негативних йонів.
+        </div>
+      </section>
+      <section id="electrolysis" class="panel">
+        <div class="title">
+          <div>
+            <span>02</span>
+            <h2>Електроліз розчину CuCl₂</h2>
+          </div>
+          <p>Замкни коло та простеж за рухом Cu²⁺ і Cl⁻.</p>
+        </div>
+        <div class="grid">
+          <article class="visual">
+            <div class="cardtop">
+              <h3>Електролітична ванна</h3>
+              <label class="switch"
+                ><input id="electroSwitch" type="checkbox" /><span></span
+                ><b id="switchText">Коло розімкнене</b></label
+              >
+            </div>
+            <canvas id="bath" width="820" height="500"></canvas>
+            <div class="reactions">
+              <div>
+                <span>Катод (−): відновлення</span><b>Cu²⁺ + 2e⁻ → Cu↓</b>
+              </div>
+              <div>
+                <span>Анод (+): окиснення</span><b>2Cl⁻ − 2e⁻ → Cl₂↑</b>
+              </div>
+            </div>
+          </article>
+          <aside class="controls">
+            <h3>Параметри</h3>
+            <label
+              ><span>Сила струму I <output id="iOut">1,0 А</output></span
+              ><input
+                id="iRange"
+                type="range"
+                min="0.1"
+                max="5"
+                step="0.1"
+                value="1" /></label
+            ><label
+              ><span>Час t <output id="timeOut">10 хв</output></span
+              ><input id="timeRange" type="range" min="1" max="60" value="10"
+            /></label>
+            <div class="answer">
+              <span>Осаджена мідь</span><b id="copperMass">0,198 г</b
+              ><small>m = kIt, k(Cu²⁺) = 0,329 мг/Кл</small>
+            </div>
+            <div class="legend">
+              <span>🟠 Cu²⁺ → катод (−)</span><span>🟢 Cl⁻ → анод (+)</span>
+            </div>
+          </aside>
+        </div>
+      </section>
+      <section id="faraday" class="panel">
+        <div class="title">
+          <div>
+            <span>03</span>
+            <h2>Калькулятор законів Фарадея</h2>
+          </div>
+          <p>Обери речовину та визнач масу, заряд або час.</p>
+        </div>
+        <div class="grid">
+          <article class="visual">
+            <canvas id="massGraph" width="820" height="450"></canvas>
+          </article>
+          <aside class="controls">
+            <h3>Розрахунок маси</h3>
+            <label
+              ><span
+                >Речовина
+                <select id="substance">
+                  <option value="copper">Мідь Cu²⁺</option>
+                  <option value="silver">Срібло Ag⁺</option>
+                  <option value="aluminum">Алюміній Al³⁺</option>
+                  <option value="nickel">Нікель Ni²⁺</option>
+                </select></span
+              ></label
+            ><label
+              ><span>Струм I <output id="calcIOut">2,0 А</output></span
+              ><input
+                id="calcIRange"
+                type="range"
+                min="0.1"
+                max="10"
+                step="0.1"
+                value="2" /></label
+            ><label
+              ><span>Час t <output id="calcTimeOut">30 хв</output></span
+              ><input
+                id="calcTimeRange"
+                type="range"
+                min="1"
+                max="120"
+                value="30"
+            /></label>
+            <div class="answer">
+              <span>Електрохімічний еквівалент</span
+              ><b id="kValue">k = 0,329 мг/Кл</b
+              ><small id="massValue">m = 1,184 г</small>
+            </div>
+          </aside>
+        </div>
+      </section>
+      <section id="uses" class="panel">
+        <div class="title">
+          <div>
+            <span>04</span>
+            <h2>Де застосовують електроліз</h2>
+          </div>
+          <p>Електрохімічні технології навколо нас.</p>
+        </div>
+        <div class="uses">
+          <article>
+            <i>✨</i>
+            <h3>Гальваностегія</h3>
+            <p>
+              Покриття виробів тонким шаром металу: хромування, сріблення,
+              нікелювання.
+            </p>
+          </article>
+          <article>
+            <i>🪙</i>
+            <h3>Гальванопластика</h3>
+            <p>Отримання точних металевих копій рельєфних виробів.</p>
+          </article>
+          <article>
+            <i>🏭</i>
+            <h3>Рафінування</h3>
+            <p>Електролітичне очищення міді та інших металів.</p>
+          </article>
+          <article>
+            <i>🔋</i>
+            <h3>Акумулятори</h3>
+            <p>Електрохімічні процеси заряджання та розряджання.</p>
+          </article>
+          <article>
+            <i>🫧</i>
+            <h3>Водень і кисень</h3>
+            <p>Електроліз води для отримання газів.</p>
+          </article>
+          <article>
+            <i>💧</i>
+            <h3>Очищення води</h3>
+            <p>Розкладання органічних домішок і вилучення йонів металів.</p>
+          </article>
+        </div>
+      </section>
+      <section id="quiz" class="panel">
+        <div class="title">
+          <div>
+            <span>05</span>
+            <h2>Перевір себе</h2>
+          </div>
+          <p>Шість запитань за матеріалом теми.</p>
+        </div>
+        <div id="quizBox" class="quiz"></div>
+        <div class="actions">
+          <button id="check">Перевірити</button
+          ><button id="reset">Ще раз</button><b id="result"></b>
+        </div>
+      </section>
+    </main>
+    <footer>Гришаєв М.М. · Інтерактивні симуляції для уроків фізики</footer>
+    <script src="app.js"></script>
+  </body>
+</html>
