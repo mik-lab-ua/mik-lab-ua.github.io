@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Physics Lab UA — Електричний струм у напівпровідниках</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header>
+  <a href="#top">⚡ PHYSICS LAB UA</a>
+  <span>Тема 9. ЕЛЕКТРИЧНИЙ СТРУМ У НАПІВПРОВІДНИКАХ</span>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div>
+      <p>ВІРТУАЛЬНА ЛАБОРАТОРІЯ</p>
+      <h1>Електричний струм<br><em>у напівпровідниках</em></h1>
+      <small>
+        Досліди власну та домішкову провідність, утворення p-n-переходу,
+        пряме й зворотне ввімкнення діода та його вольт-амперну характеристику.
+      </small>
+      <button data-go="intrinsic">Почати дослід →</button>
+    </div>
+    <aside>
+      <b>Вільні електрони + дірки</b>
+      <span>носії струму у чистому напівпровіднику</span>
+      <b>n-тип</b>
+      <span>донорна домішка → переважають електрони</span>
+      <b>p-тип</b>
+      <span>акцепторна домішка → переважають дірки</span>
+    </aside>
+  </section>
+
+  <nav>
+    <button class="tab active" data-tab="theory">1. Теорія</button>
+    <button class="tab" data-tab="intrinsic">2. Власна провідність</button>
+    <button class="tab" data-tab="doping">3. Домішки</button>
+    <button class="tab" data-tab="junction">4. p-n-перехід</button>
+    <button class="tab" data-tab="diode">5. Напівпровідниковий діод</button>
+    <button class="tab" data-tab="quiz">6. Перевір себе</button>
+  </nav>
+
+  <section id="theory" class="panel active-panel">
+    <div class="title">
+      <div><span>01</span><h2>Особливості напівпровідників</h2></div>
+      <p>За провідністю вони займають проміжне місце між провідниками та діелектриками.</p>
+    </div>
+
+    <div class="cards">
+      <article>
+        <i>🌡️</i>
+        <h3>Температура</h3>
+        <p>На відміну від металів, питомий опір напівпровідника зменшується зі зростанням температури.</p>
+      </article>
+      <article>
+        <i>💡</i>
+        <h3>Освітлення</h3>
+        <p>Питомий опір більшості напівпровідників зменшується зі збільшенням освітленості.</p>
+      </article>
+      <article>
+        <i>🧪</i>
+        <h3>Домішки</h3>
+        <p>Навіть невелика кількість домішки може різко збільшити провідність напівпровідника.</p>
+      </article>
+    </div>
+
+    <article class="visual graph-card">
+      <div class="cardtop">
+        <h3>Залежність питомого опору від температури</h3>
+        <span>ρ ↓, коли T ↑</span>
+      </div>
+      <canvas id="rhoGraph" width="1100" height="420"></canvas>
+    </article>
+  </section>
+
+  <section id="intrinsic" class="panel">
+    <div class="title">
+      <div><span>02</span><h2>Власна провідність напівпровідника</h2></div>
+      <p>Нагрівання руйнує частину ковалентних зв’язків, утворюючи пари «вільний електрон — дірка».</p>
+    </div>
+
+    <div class="grid">
+      <article class="visual">
+        <div class="cardtop">
+          <h3>Кристал чистого силіцію</h3>
+          <span id="pairStatus">Мало вільних носіїв</span>
+        </div>
+        <canvas id="intrinsicCanvas" width="900" height="520"></canvas>
+      </article>
+
+      <aside class="controls">
+        <h3>Параметри</h3>
+        <label>
+          <span>Температура <output id="tempOut">300 K</output></span>
+          <input id="tempRange" type="range" min="250" max="800" step="10" value="300">
+        </label>
+
+        <label>
+          <span>Електричне поле <output id="fieldOut">0 %</output></span>
+          <input id="fieldRange" type="range" min="0" max="100" value="0">
+        </label>
+
+        <div class="answer">
+          <span>Кількість пар носіїв</span>
+          <b id="pairCount">2</b>
+          <small>У чистому напівпровіднику кількість вільних електронів і дірок однакова.</small>
+        </div>
+
+        <div class="legend">
+          <span><i class="swatch electron"></i>вільні електрони</span>
+          <span><i class="swatch hole"></i>дірки</span>
+          <span><i class="swatch silicon"></i>атоми Si</span>
+        </div>
+      </aside>
+    </div>
+
+    <div class="note">
+      <b>Власна провідність</b> — провідність чистого напівпровідника, зумовлена рухом
+      однакової кількості вільних електронів і дірок.
+    </div>
+  </section>
+
+  <section id="doping" class="panel">
+    <div class="title">
+      <div><span>03</span><h2>Домішкова провідність</h2></div>
+      <p>Порівняй донорну та акцепторну домішки в кристалі силіцію.</p>
+    </div>
+
+    <div class="grid">
+      <article class="visual">
+        <div class="cardtop">
+          <h3>Домішка у кристалі</h3>
+          <span id="dopingType">n-тип</span>
+        </div>
+        <canvas id="dopingCanvas" width="900" height="520"></canvas>
+      </article>
+
+      <aside class="controls">
+        <h3>Вибір домішки</h3>
+
+        <label>
+          <span>Тип</span>
+          <select id="dopantSelect">
+            <option value="donor">Донорна — Арсен (As)</option>
+            <option value="acceptor">Акцепторна — Індій (In)</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Концентрація домішки <output id="dopantOut">20 %</output></span>
+          <input id="dopantRange" type="range" min="0" max="100" value="20">
+        </label>
+
+        <div class="answer">
+          <span>Основні носії струму</span>
+          <b id="mainCarrier">Електрони</b>
+          <small id="dopantExplain">Донорна домішка додає до кристала вільні електрони.</small>
+        </div>
+
+        <div class="legend">
+          <span><i class="swatch silicon"></i>атом Si</span>
+          <span id="dopantLegend"><i class="swatch donor"></i>атом донорної домішки As</span>
+          <span id="carrierLegend"><i class="swatch electron"></i>додаткові вільні електрони</span>
+        </div>
+      </aside>
+    </div>
+
+    <div class="compare">
+      <article>
+        <h3>n-тип</h3>
+        <p><b>Донорна домішка</b> має більшу валентність. З’являються додаткові вільні електрони.</p>
+      </article>
+      <article>
+        <h3>p-тип</h3>
+        <p><b>Акцепторна домішка</b> має меншу валентність. З’являються додаткові дірки.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="junction" class="panel">
+    <div class="title">
+      <div><span>04</span><h2>Як утворюється p-n-перехід</h2></div>
+      <p>Простеж за дифузією носіїв та утворенням запірного шару.</p>
+    </div>
+
+    <div class="grid">
+      <article class="visual">
+        <div class="cardtop">
+          <h3>Формування p-n-переходу</h3>
+          <button id="restartJunction" class="mini-btn">Запустити знову</button>
+        </div>
+        <canvas id="junctionCanvas" width="900" height="520"></canvas>
+      </article>
+
+      <aside class="controls">
+        <h3>Етап процесу</h3>
+        <input id="junctionRange" type="range" min="0" max="100" value="0">
+        <div class="answer">
+          <span id="junctionStage">1. Контакт p- і n-ділянок</span>
+          <b id="junctionState">Починається дифузія носіїв</b>
+          <small id="junctionExplain">Електрони з n-ділянки та дірки з p-ділянки рухаються до межі.</small>
+        </div>
+
+        <div class="legend">
+          <span><i class="swatch hole"></i>дірки в p-ділянці</span>
+          <span><i class="swatch electron"></i>електрони в n-ділянці</span>
+          <span><i class="swatch acceptor-ion"></i>нерухомі негативні йони у p-частині запірного шару</span>
+          <span><i class="swatch donor-ion"></i>нерухомі позитивні йони у n-частині запірного шару</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="diode" class="panel">
+    <div class="title">
+      <div><span>05</span><h2>Напівпровідниковий діод</h2></div>
+      <p>Змінюй напругу та спостерігай, як змінюється ширина запірного шару і сила струму.</p>
+    </div>
+
+    <div class="grid">
+      <article class="visual">
+        <div class="cardtop">
+          <h3>Пряме і зворотне ввімкнення</h3>
+          <span id="biasMode">Пряме ввімкнення</span>
+        </div>
+        <canvas id="diodeCanvas" width="900" height="520"></canvas>
+      </article>
+
+      <aside class="controls">
+        <h3>Напруга на діоді</h3>
+        <label>
+          <span>U <output id="diodeUOut">0,50 В</output></span>
+          <input id="diodeURange" type="range" min="-5" max="1" step="0.05" value="0.5">
+        </label>
+
+        <div class="answer">
+          <span>Сила струму</span>
+          <b id="diodeIOut">I = 0,20 мА</b>
+          <small id="diodeExplain">Запірний шар звужується, основні носії проходять через p-n-перехід.</small>
+        </div>
+
+        <div class="barrier">
+          <span>Ширина запірного шару</span>
+          <div><i id="barrierBar"></i></div>
+        </div>
+
+        <div class="legend">
+          <span><i class="swatch hole"></i>дірки</span>
+          <span><i class="swatch electron"></i>електрони</span>
+          <span><i class="swatch depletion"></i>запірний шар</span>
+        </div>
+      </aside>
+    </div>
+
+    <article class="visual graph-card">
+      <div class="cardtop">
+        <h3>Вольт-амперна характеристика напівпровідникового діода</h3>
+        <span>Прямий струм — мА · зворотний — мкА</span>
+      </div>
+      <canvas id="diodeGraph" width="1100" height="500"></canvas>
+    </article>
+
+    <div class="note">
+      <b>Зверни увагу.</b> У прямому напрямку струм різко зростає після подолання
+      бар’єра p-n-переходу. У зворотному напрямку тече дуже малий струм, доки
+      не досягнуто напруги пробою.
+    </div>
+  </section>
+
+  <section id="quiz" class="panel">
+    <div class="title">
+      <div><span>06</span><h2>Перевір себе</h2></div>
+      <p>Вісім запитань за матеріалом теми.</p>
+    </div>
+
+    <div id="quizBox" class="quiz"></div>
+    <div class="actions">
+      <button id="check">Перевірити</button>
+      <button id="reset">Ще раз</button>
+      <b id="result"></b>
+    </div>
+  </section>
+</main>
+
+<footer>Гришаєв М.М. · Інтерактивні симуляції для уроків фізики</footer>
+<script src="app.js"></script>
+</body>
+</html>
