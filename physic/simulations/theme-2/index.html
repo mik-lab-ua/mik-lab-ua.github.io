@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Physics Lab UA — Послідовне і паралельне з’єднання</title>
+  <meta name="description" content="Віртуальна лабораторія для дослідження послідовного і паралельного з’єднання провідників, шунта та додаткового опору.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top">⚡ PHYSICS LAB UA</a>
+    <span>Тема 2. З’ЄДНАННЯ ПРОВІДНИКІВ</span>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">ВІРТУАЛЬНА ЛАБОРАТОРІЯ · 8 КЛАС</p>
+        <h1>Послідовне і паралельне<br><em>з’єднання провідників</em></h1>
+        <p class="lead">Збирай схеми, порівнюй силу струму й напругу, визначай загальний опір та перевіряй закони з’єднання експериментально.</p>
+        <button class="primary" data-go="lab">Почати дослід →</button>
+      </div>
+      <div class="formula-card" aria-label="Основні формули">
+        <div><span>Послідовно</span><b>R = R₁ + R₂</b><small>I = I₁ = I₂</small></div>
+        <div><span>Паралельно</span><b>1/R = 1/R₁ + 1/R₂</b><small>U = U₁ = U₂</small></div>
+      </div>
+    </section>
+
+    <nav class="tabs" aria-label="Розділи лабораторії">
+      <button class="tab active" data-tab="theory">1. Теорія</button>
+      <button class="tab" data-tab="lab">2. Дослідне коло</button>
+      <button class="tab" data-tab="meters">3. Межі вимірювання</button>
+      <button class="tab" data-tab="quiz">4. Перевір себе</button>
+    </nav>
+
+    <section id="theory" class="panel active-panel">
+      <header class="section-head"><div><span>01</span><h2>Порівняй два види з’єднання</h2></div><p>Головна відмінність — кількість шляхів для струму.</p></header>
+      <div class="compare-grid">
+        <article class="theory-card series-card">
+          <div class="card-icon">— ▭ — ▭ —</div><h3>Послідовне з’єднання</h3>
+          <p>Провідники розташовані один за одним, розгалужень немає.</p>
+          <ul><li><b>I = I₁ = I₂</b></li><li><b>U = U₁ + U₂</b></li><li><b>R = R₁ + R₂</b></li></ul>
+          <p class="hint">Загальний опір більший за опір кожного провідника.</p>
+        </article>
+        <article class="theory-card parallel-card">
+          <div class="card-icon">╭ ▭ ╮<br>╰ ▭ ╯</div><h3>Паралельне з’єднання</h3>
+          <p>Провідники приєднані до однієї пари вузлів і утворюють окремі вітки.</p>
+          <ul><li><b>I = I₁ + I₂</b></li><li><b>U = U₁ = U₂</b></li><li><b>1/R = 1/R₁ + 1/R₂</b></li></ul>
+          <p class="hint">Загальний опір менший за найменший опір вітки.</p>
+        </article>
+      </div>
+      <div class="definition"><b>Мета роботи:</b> експериментально перевірити співвідношення між силою струму, напругою та опором у послідовному і паралельному колах.</div>
+    </section>
+
+    <section id="lab" class="panel">
+      <header class="section-head"><div><span>02</span><h2>Дослідне електричне коло</h2></div><p>Зміни параметри, замкни ключ і порівняй результати.</p></header>
+      <div class="mode-switch" role="group" aria-label="Тип з’єднання">
+        <button class="mode active" data-mode="series" aria-pressed="true">Послідовне</button>
+        <button class="mode" data-mode="parallel" aria-pressed="false">Паралельне</button>
+      </div>
+      <div class="lab-grid">
+        <article class="circuit-card">
+          <div class="card-top"><h3 id="circuitTitle">Послідовне коло</h3><label class="switch"><input id="circuitSwitch" type="checkbox" checked><span></span><b>Ключ замкнений</b></label></div>
+          <canvas id="circuitCanvas" width="820" height="460" aria-label="Схема електричного кола"></canvas>
+          <div class="legend"><span><i class="red"></i> умовний напрям струму</span><span><i class="blue"></i> провідники та елементи</span></div>
+          <p id="circuitStatus" class="status on">● Коло замкнене — струм протікає</p>
+        </article>
+        <aside class="controls-card">
+          <h3>Параметри досліду</h3>
+          <label class="control"><span>Напруга джерела U <output id="uOut">12 В</output></span><input id="uRange" type="range" min="1" max="24" value="12"></label>
+          <label class="control"><span>Опір R₁ <output id="r1Out">20 Ом</output></span><input id="r1Range" type="range" min="2" max="100" value="20"></label>
+          <label class="control"><span>Опір R₂ <output id="r2Out">30 Ом</output></span><input id="r2Range" type="range" min="2" max="100" value="30"></label>
+          <button id="randomBtn" class="secondary">🎲 Новий дослід</button>
+        </aside>
+      </div>
+      <div class="results" aria-live="polite">
+        <div><span>Загальний опір</span><b id="rEq">50,00 Ом</b></div>
+        <div><span>Загальний струм</span><b id="iTotal">0,24 А</b></div>
+        <div><span>Струм I₁</span><b id="i1">0,24 А</b></div>
+        <div><span>Струм I₂</span><b id="i2">0,24 А</b></div>
+        <div><span>Напруга U₁</span><b id="u1">4,80 В</b></div>
+        <div><span>Напруга U₂</span><b id="u2">7,20 В</b></div>
+      </div>
+      <div class="verification"><div><span>Перевірка сили струму</span><b id="currentCheck">I = I₁ = I₂</b></div><div><span>Перевірка напруги</span><b id="voltageCheck">U = U₁ + U₂</b></div><div><span>Перевірка опору</span><b id="resistanceCheck">R = R₁ + R₂</b></div></div>
+    </section>
+
+    <section id="meters" class="panel">
+      <header class="section-head"><div><span>03</span><h2>Шунт і додатковий опір</h2></div><p>Збільшуй верхню межу вимірювання приладів.</p></header>
+      <div class="meters-grid">
+        <article class="calc-card">
+          <div class="meter-symbol">A</div><h3>Шунт до амперметра</h3><p>Шунт під’єднують паралельно. Він відводить частину струму від амперметра.</p>
+          <label class="control"><span>Опір амперметра R<sub>A</sub> <output id="raOut">6 Ом</output></span><input id="raRange" type="range" min="1" max="50" value="6"></label>
+          <label class="control"><span>Збільшити межу в n разів <output id="nAOut">4</output></span><input id="nARange" type="range" min="2" max="10" value="4"></label>
+          <div class="answer"><span>Опір шунта</span><b id="shuntAnswer">Rш = 2,00 Ом</b><small>Rш = RА / (n − 1)</small></div>
+        </article>
+        <article class="calc-card">
+          <div class="meter-symbol">V</div><h3>Додатковий опір до вольтметра</h3><p>Додатковий резистор під’єднують послідовно, щоб частина напруги припадала на нього.</p>
+          <label class="control"><span>Опір вольтметра R<sub>V</sub> <output id="rvOut">10 кОм</output></span><input id="rvRange" type="range" min="1" max="50" value="10"></label>
+          <label class="control"><span>Збільшити межу в n разів <output id="nVOut">4</output></span><input id="nVRange" type="range" min="2" max="10" value="4"></label>
+          <div class="answer"><span>Додатковий опір</span><b id="extraAnswer">Rд = 30,00 кОм</b><small>Rд = RV(n − 1)</small></div>
+        </article>
+      </div>
+      <div class="definition"><b>Запам’ятай:</b> у скільки разів збільшують межу вимірювання приладу, у стільки разів зростає ціна поділки його шкали.</div>
+    </section>
+
+    <section id="quiz" class="panel">
+      <header class="section-head"><div><span>04</span><h2>Перевір себе</h2></div><p>Шість коротких запитань за матеріалом теми.</p></header>
+      <div id="quizBox" class="quiz-box"></div>
+      <div class="quiz-actions"><button id="checkQuiz" class="primary">Перевірити відповіді</button><button id="resetQuiz" class="secondary">Спробувати ще раз</button><b id="quizResult"></b></div>
+    </section>
+  </main>
+  <footer>Гришаєв М.М. · Інтерактивні симуляції для уроків фізики</footer>
+  <script src="app.js"></script>
+</body>
+</html>
