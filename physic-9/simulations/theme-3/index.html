@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Physics Lab UA — Магнітне поле струму. Правило свердлика</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <a href="#top">🧲 PHYSICS LAB UA</a>
+  <span>Тема 3. МАГНІТНЕ ПОЛЕ СТРУМУ · ПРАВИЛО СВЕРДЛИКА</span>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div>
+      <p>ВІРТУАЛЬНА ЛАБОРАТОРІЯ</p>
+      <h1>Магнітне поле струму.<br><em>Правило свердлика</em></h1>
+      <small>
+        Визначай напрям магнітних ліній навколо провідника, перевіряй правило свердлика,
+        досліджуй залежність B від сили струму та відстані і визначай полюси котушки зі струмом.
+      </small>
+      <button data-go="screw">Почати дослід →</button>
+    </div>
+    <aside>
+      <b>I ↑ → B ↑</b><span>зі збільшенням струму поле посилюється</span>
+      <b>r ↑ → B ↓</b><span>зі збільшенням відстані поле слабшає</span>
+      <b>Правило свердлика</b><span>струм задає напрям обертання магнітних ліній</span>
+      <b>Котушка</b><span>має полюси N і S</span>
+    </aside>
+  </section>
+
+  <nav>
+    <button class="tab active" data-tab="theory">1. Теорія</button>
+    <button class="tab" data-tab="screw">2. Правило свердлика</button>
+    <button class="tab" data-tab="straight">3. Поле прямого провідника</button>
+    <button class="tab" data-tab="coil">4. Котушка зі струмом</button>
+    <button class="tab" data-tab="quiz">5. Перевір себе</button>
+  </nav>
+
+  <section id="theory" class="panel active-panel">
+    <div class="title">
+      <div><span>01</span><h2>Що треба знати</h2></div>
+      <p>Навколо провідника зі струмом існує магнітне поле.</p>
+    </div>
+
+    <div class="cards">
+      <article>
+        <i>◎</i>
+        <h3>Прямий провідник</h3>
+        <p>Лінії магнітної індукції навколо прямого провідника зі струмом є концентричними колами.</p>
+      </article>
+      <article>
+        <i>🔩</i>
+        <h3>Правило свердлика</h3>
+        <p>Якщо вкручувати свердлик за напрямом струму, напрям обертання ручки показує напрям магнітних ліній.</p>
+      </article>
+      <article>
+        <i>🌀</i>
+        <h3>Котушка</h3>
+        <p>Котушка зі струмом створює поле, подібне до поля штабового магніту, і має полюси N та S.</p>
+      </article>
+    </div>
+
+    <div class="note">
+      <b>Важливо.</b> Магнітна індукція поля прямого провідника збільшується зі збільшенням сили струму
+      і зменшується зі збільшенням відстані від провідника.
+    </div>
+  </section>
+
+  <section id="screw" class="panel">
+    <div class="title">
+      <div><span>02</span><h2>Правило свердлика</h2></div>
+      <p>Зміни напрям струму і простеж, як змінюється напрям магнітних ліній.</p>
+    </div>
+
+    <div class="grid">
+      <article class="visual">
+        <div class="cardtop">
+          <h3>Провідник перпендикулярно до площини рисунка</h3>
+          <span id="screwState">I до нас ⊙ → B проти годинникової стрілки</span>
+        </div>
+        <canvas id="screwCanvas" width="920" height="540"></canvas>
+        <div class="under-legend">
+          <span><i class="dot-symbol">⊙</i> струм до нас із площини</span>
+          <span><i class="cross-symbol">⊗</i> струм від нас у площину</span>
+          <span><i class="line-symbol"></i> магнітні лінії</span>
+        </div>
+      </article>
+
+      <aside class="controls">
+        <h3>Напрям струму</h3>
+        <label><span>Струм у провіднику</span>
+          <select id="screwDirection">
+            <option value="out">до нас ⊙</option>
+            <option value="in">від нас ⊗</option>
+          </select>
+        </label>
+
+        <label><span>Сила струму I <output id="screwCurrentOut">3,0 А</output></span>
+          <input id="screwCurrent" type="range" min="0.5" max="8" step="0.5" value="3">
+        </label>
+
+        <div class="answer">
+          <span>Правило свердлика</span>
+          <b id="screwAnswer">Обертання проти годинникової стрілки</b>
+          <small id="screwHint">Великий палець правої руки спрямований до нас, зігнуті пальці показують напрям B.</small>
+        </div>
+
+        <div class="field-strength">
+          <span>Умовна сила поля</span>
+          <div><i id="screwBar"></i></div>
+          <b id="screwStrengthText">середня</b>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="straight" class="panel">
+    <div class="title">
+      <div><span>03</span><h2>Від чого залежить магнітна індукція</h2></div>
+      <p>Порівнюй B у різних точках біля прямого провідника.</p>
+    </div>
+
+    <div class="grid">
+      <article class="visual">
+        <div class="cardtop">
+          <h3>Концентричні лінії поля і точки 1 та 2</h3>
+          <span id="straightState">B₁ > B₂, бо точка 1 ближче до провідника</span>
+        </div>
+        <canvas id="straightCanvas" width="920" height="540"></canvas>
+        <div class="under-legend">
+          <span><i class="cross-symbol">⊗</i> струм у площину рисунка</span>
+          <span><i class="b-arrow"></i> вектор B дотичний до кола</span>
+          <span><i class="point-symbol"></i> точки спостереження</span>
+        </div>
+      </article>
+
+      <aside class="controls">
+        <h3>Параметри</h3>
+        <label><span>Сила струму I <output id="straightCurrentOut">3,0 А</output></span>
+          <input id="straightCurrent" type="range" min="0.5" max="8" step="0.5" value="3">
+        </label>
+        <label><span>Відстань точки 1 <output id="r1Out">80 ум. од.</output></span>
+          <input id="r1" type="range" min="55" max="190" value="80">
+        </label>
+        <label><span>Відстань точки 2 <output id="r2Out">150 ум. од.</output></span>
+          <input id="r2" type="range" min="70" max="220" value="150">
+        </label>
+
+        <div class="compare-box">
+          <div><span>B₁</span><b id="b1Text">0,038 ум. од.</b></div>
+          <div><span>B₂</span><b id="b2Text">0,020 ум. од.</b></div>
+        </div>
+
+        <div class="answer">
+          <span>Висновок</span>
+          <b id="straightAnswer">B₁ > B₂</b>
+          <small id="straightHint">За однакового струму поле сильніше ближче до провідника.</small>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="coil" class="panel">
+    <div class="title">
+      <div><span>04</span><h2>Магнітне поле котушки зі струмом</h2></div>
+      <p>Змінюй напрям струму і визначай, де N, а де S.</p>
+    </div>
+
+    <div class="grid">
+      <article class="visual">
+        <div class="cardtop">
+          <h3>Котушка зі струмом і її магнітні полюси</h3>
+          <span id="coilState">Ліворуч N, праворуч S</span>
+        </div>
+        <canvas id="coilCanvas" width="920" height="560"></canvas>
+        <div class="under-legend">
+          <span><i class="north-mini"></i> N — північний полюс котушки</span>
+          <span><i class="south-mini"></i> S — південний полюс котушки</span>
+          <span><i class="line-symbol"></i> магнітні лінії котушки</span>
+        </div>
+      </article>
+
+      <aside class="controls">
+        <h3>Керування котушкою</h3>
+        <label><span>Напрям струму в витках</span>
+          <select id="coilDirection">
+            <option value="normal">як на рис. 3.5</option>
+            <option value="reverse">зворотний</option>
+          </select>
+        </label>
+
+        <label><span>Сила струму I <output id="coilCurrentOut">3,0 А</output></span>
+          <input id="coilCurrent" type="range" min="0.5" max="8" step="0.5" value="3">
+        </label>
+
+        <label><span>Кількість витків <output id="turnsOut">12</output></span>
+          <input id="turnsRange" type="range" min="6" max="20" step="1" value="12">
+        </label>
+
+        <div class="answer">
+          <span>Правило правої руки</span>
+          <b id="coilPoles">Лівий торець — N, правий — S</b>
+          <small id="coilHint">Зігнуті пальці правої руки спрямовуємо за струмом у витках, великий палець показує на N.</small>
+        </div>
+
+        <div class="field-strength">
+          <span>Умовна сила поля котушки</span>
+          <div><i id="coilBar"></i></div>
+          <b id="coilStrengthText">середня</b>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="quiz" class="panel">
+    <div class="title">
+      <div><span>05</span><h2>Перевір себе</h2></div>
+      <p>Дев’ять запитань за матеріалом теми.</p>
+    </div>
+    <div id="quizBox" class="quiz"></div>
+    <div class="actions">
+      <button id="check">Перевірити</button>
+      <button id="reset">Ще раз</button>
+      <b id="result"></b>
+    </div>
+  </section>
+</main>
+
+<footer>Гришаєв М.М. · Інтерактивні симуляції для уроків фізики</footer>
+<script src="app.js"></script>
+</body>
+</html>
