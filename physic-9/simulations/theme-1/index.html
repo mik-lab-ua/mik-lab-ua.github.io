@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Physics Lab UA — Магнітні явища. Дослід Ерстеда. Магнітне поле</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header>
+  <a href="#top">🧲 PHYSICS LAB UA</a>
+  <span>Тема 1. МАГНІТНІ ЯВИЩА · ДОСЛІД ЕРСТЕДА · МАГНІТНЕ ПОЛЕ</span>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div>
+      <p>ВІРТУАЛЬНА ЛАБОРАТОРІЯ</p>
+      <h1>Магнітні явища.<br><em>Дослід Ерстеда</em></h1>
+      <small>
+        Досліди властивості постійних магнітів, спостерігай дію струму
+        на магнітну стрілку, порівнюй взаємодію паралельних провідників
+        і побач, як навколо струму виникає магнітне поле.
+      </small>
+      <button data-go="magnets">Почати дослід →</button>
+    </div>
+    <aside>
+      <b>N і S</b><span>два полюси магніту</span>
+      <b>Однакові полюси</b><span>відштовхуються</span>
+      <b>Різнойменні полюси</b><span>притягуються</span>
+      <b>Струм → магнітне поле</b><span>відкриття досліду Ерстеда</span>
+    </aside>
+  </section>
+
+  <nav>
+    <button class="tab active" data-tab="theory">1. Теорія</button>
+    <button class="tab" data-tab="magnets">2. Постійні магніти</button>
+    <button class="tab" data-tab="oersted">3. Дослід Ерстеда</button>
+    <button class="tab" data-tab="ampere">4. Досліди Ампера</button>
+    <button class="tab" data-tab="field">5. Магнітне поле</button>
+    <button class="tab" data-tab="quiz">6. Перевір себе</button>
+  </nav>
+
+  <section id="theory" class="panel active-panel">
+    <div class="title">
+      <div><span>01</span><h2>Основні властивості постійних магнітів</h2></div>
+      <p>Магнітна дія найсильніша поблизу полюсів.</p>
+    </div>
+
+    <div class="cards">
+      <article><i>🧲</i><h3>Два полюси</h3><p>Кожен постійний магніт має північний полюс N і південний S.</p></article>
+      <article><i>↔️</i><h3>Взаємодія</h3><p>Однойменні полюси відштовхуються, різнойменні — притягуються.</p></article>
+      <article><i>🔥</i><h3>Точка Кюрі</h3><p>Під час нагрівання до певної температури магнітні властивості зникають.</p></article>
+    </div>
+
+    <div class="note">
+      <b>Постійні магніти</b> — тіла, які тривалий час зберігають магнітні властивості.
+      Неможливо одержати магніт тільки з одним полюсом.
+    </div>
+  </section>
+
+  <section id="magnets" class="panel">
+    <div class="title">
+      <div><span>02</span><h2>Взаємодія постійних магнітів</h2></div>
+      <p>Змінюй полюси та відстань між магнітами.</p>
+    </div>
+
+    <div class="grid">
+      <article class="visual">
+        <div class="cardtop"><h3>Два штабові магніти</h3><span id="magnetState">Різнойменні полюси — притягання</span></div>
+        <canvas id="magnetCanvas" width="900" height="500"></canvas>
+      </article>
+
+      <aside class="controls">
+        <h3>Параметри</h3>
+        <label><span>Полюс лівого магніту, повернений до центра</span>
+          <select id="leftPole"><option value="N">N</option><option value="S">S</option></select>
+        </label>
+        <label><span>Полюс правого магніту, повернений до центра</span>
+          <select id="rightPole"><option value="S">S</option><option value="N">N</option></select>
+        </label>
+        <label><span>Відстань <output id="distanceOut">140 ум. од.</output></span>
+          <input id="distanceRange" type="range" min="70" max="240" value="140">
+        </label>
+
+        <div class="answer">
+          <span>Результат</span><b id="forceResult">Магніти притягуються</b>
+          <small id="forceHint">Різнойменні полюси N і S.</small>
+        </div>
+
+        <div class="legend">
+          <span><i class="swatch north"></i><b>N</b> — північний полюс</span>
+          <span><i class="swatch south"></i><b>S</b> — південний полюс</span>
+          <span><i class="legend-arrow force"></i><b>Стрілки</b> — напрям взаємодії</span>
+        </div>
+      </aside>
+    </div>
+
+    <article class="visual graph-card">
+      <div class="cardtop"><h3>Нагрівання магніту і точка Кюрі</h3></div>
+      <div class="curie-wrap">
+        <label><span>Матеріал</span>
+          <select id="curieSelect">
+            <option value="770">Залізо — 770 °C</option>
+            <option value="1127">Кобальт — 1127 °C</option>
+            <option value="354">Нікель — 354 °C</option>
+          </select>
+        </label>
+        <label><span>Температура <output id="curieTempOut">20 °C</output></span>
+          <input id="curieTemp" type="range" min="20" max="1200" value="20">
+        </label>
+        <div class="curie-status"><b id="curieState">Магнітні властивості зберігаються</b><span id="curieHint">T < TКюрі</span></div>
+      </div>
+    </article>
+  </section>
+
+  <section id="oersted" class="panel">
+    <div class="title">
+      <div><span>03</span><h2>Дослід Ерстеда</h2></div>
+      <p>Струм у провіднику створює магнітне поле, яке повертає магнітну стрілку.</p>
+    </div>
+
+    <div class="grid">
+      <article class="visual">
+        <div class="cardtop">
+          <h3>Провідник над магнітною стрілкою</h3>
+          <label class="switch"><input id="currentSwitch" type="checkbox"><span></span><b id="switchText">Струму немає</b></label>
+        </div>
+        <canvas id="oerstedCanvas" width="900" height="520"></canvas>
+      </article>
+
+      <aside class="controls">
+        <h3>Керування струмом</h3>
+        <label><span>Сила струму I <output id="currentOut">2,0 А</output></span>
+          <input id="currentRange" type="range" min="0.2" max="8" step="0.2" value="2">
+        </label>
+        <label><span>Напрям струму</span>
+          <select id="currentDirectionSelect">
+            <option value="right">зліва → вправо</option>
+            <option value="left">справа → вліво</option>
+          </select>
+        </label>
+
+        <div class="answer">
+          <span>Спостереження</span><b id="needleResult">Стрілка орієнтована північ–південь</b>
+          <small id="needleHint">Замкни коло, щоб побачити відхилення.</small>
+        </div>
+        <div class="oersted-facts">
+          <div><span>Напрям струму</span><b id="oerstedCurrentText">зліва → вправо</b></div>
+          <div><span>Поле біля компаса</span><b id="oerstedFieldText">немає поля струму</b></div>
+          <div><span>Кут між стрілкою і провідником</span><b id="oerstedDeflectText">0°</b></div>
+        </div>
+
+        <div class="legend">
+          <span><i class="swatch north"></i><b>N</b> — північний кінець стрілки</span>
+          <span><i class="swatch south"></i><b>S</b> — південний кінець стрілки</span>
+          <span><i class="legend-arrow current"></i><b>I</b> — напрям електричного струму</span>
+          <span><i class="field-ring"></i><b>Лінії поля</b> — магнітне поле навколо провідника</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="ampere" class="panel">
+    <div class="title">
+      <div><span>04</span><h2>Досліди Ампера</h2></div>
+      <p>Паралельні провідники зі струмом взаємодіють через магнітні поля.</p>
+    </div>
+
+    <div class="grid">
+      <article class="visual">
+        <div class="cardtop"><h3>Два паралельні провідники</h3><span id="ampereState">Струми одного напрямку — притягання</span></div>
+        <canvas id="ampereCanvas" width="900" height="520"></canvas>
+      </article>
+
+      <aside class="controls">
+        <h3>Напрям струмів</h3>
+        <label><span>Провідник 1</span>
+          <select id="wire1"><option value="up">↑ вгору</option><option value="down">↓ вниз</option></select>
+        </label>
+        <label><span>Провідник 2</span>
+          <select id="wire2"><option value="up">↑ вгору</option><option value="down">↓ вниз</option></select>
+        </label>
+        <label><span>Сила струму <output id="ampereCurrentOut">3,0 А</output></span>
+          <input id="ampereCurrent" type="range" min="0.5" max="8" step="0.5" value="3">
+        </label>
+
+        <div class="answer">
+          <span>Результат</span><b id="ampereResult">Провідники притягуються</b>
+          <small id="ampereHint">Струми течуть в одному напрямку.</small>
+        </div>
+
+        <div class="legend">
+          <span><i class="wire-symbol"></i><b>Сірі смуги</b> — провідники</span>
+          <span><i class="legend-arrow current"></i><b>Червоні стрілки</b> — напрям струму</span>
+          <span><i class="legend-arrow force"></i><b>Бірюзові стрілки</b> — напрям сили взаємодії</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="field" class="panel">
+    <div class="title">
+      <div><span>05</span><h2>Магнітне поле</h2></div>
+      <p>Магнітне поле існує навколо намагнічених тіл, провідників зі струмом і рухомих заряджених частинок.</p>
+    </div>
+
+    <div class="grid">
+      <article class="visual">
+        <div class="cardtop"><h3>Поле прямого провідника зі струмом</h3><span id="fieldDirectionText">Напрям поля відповідає напряму струму</span></div>
+        <canvas id="fieldCanvas" width="900" height="520"></canvas>
+      </article>
+
+      <aside class="controls">
+        <h3>Модель</h3>
+        <label><span>Джерело магнітного поля</span>
+          <select id="fieldSource">
+            <option value="wire">Прямий провідник зі струмом</option>
+            <option value="magnet">Постійний магніт</option>
+          </select>
+        </label>
+        <label id="fieldDirectionLabel"><span>Напрям струму</span>
+          <select id="fieldCurrentDirection">
+            <option value="out">із площини екрана ⊙</option>
+            <option value="in">у площину екрана ⊗</option>
+          </select>
+        </label>
+        <label><span>Сила струму <output id="fieldCurrentOut">3,0 А</output></span>
+          <input id="fieldCurrent" type="range" min="0.5" max="8" step="0.5" value="3">
+        </label>
+
+        <div class="answer">
+          <span>Спостереження</span><b id="fieldResult">Лінії поля йдуть проти годинникової стрілки</b>
+          <small id="fieldHint">Чим більший струм, тим сильніше магнітне поле.</small>
+        </div>
+
+        <div class="field-strength" id="fieldStrengthBox">
+          <span>Умовна інтенсивність магнітного поля</span>
+          <div><i id="fieldStrengthBar"></i></div>
+          <b id="fieldStrengthText">слабке</b>
+        </div>
+
+        <div class="legend">
+          <span><i class="field-dot">⊙</i><b>⊙</b> — струм із площини екрана</span>
+          <span><i class="field-dot">⊗</i><b>⊗</b> — струм у площину екрана</span>
+          <span><i class="field-ring"></i><b>Кола</b> — лінії магнітного поля</span>
+        </div>
+      </aside>
+    </div>
+
+    <div class="note">
+      <b>Магнітне поле</b> — форма матерії, яка існує навколо намагнічених тіл,
+      провідників зі струмом, рухомих заряджених тіл і частинок та діє на інші
+      намагнічені тіла, провідники зі струмом і рухомі заряджені частинки.
+    </div>
+  </section>
+
+  <section id="quiz" class="panel">
+    <div class="title"><div><span>06</span><h2>Перевір себе</h2></div><p>Вісім запитань за матеріалом теми.</p></div>
+    <div id="quizBox" class="quiz"></div>
+    <div class="actions"><button id="check">Перевірити</button><button id="reset">Ще раз</button><b id="result"></b></div>
+  </section>
+</main>
+
+<footer>Гришаєв М.М. · Інтерактивні симуляції для уроків фізики</footer>
+<script src="app.js"></script>
+</body>
+</html>
